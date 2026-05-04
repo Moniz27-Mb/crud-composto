@@ -16,7 +16,7 @@
         <div style="display:flex; gap:10px;">
             <a href="{{ route('produtos.lixeira') }}"
                style="background: #718096; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px;">
-                <i class="fas fa-trash-can"></i> Lixeira ({{ \App\Models\Produto::onlyTrashed()->count() }})
+                <i class="fas fa-trash-can"></i> Lixeira ({{ \App\Models\Produto::onlyTrashed()->where('user_id', Auth::id())->count() }})
             </a>
             <button onclick="abrirModal('modalCriar')"
                style="background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: bold; font-size: 14px; cursor: pointer;">
