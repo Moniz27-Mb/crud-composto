@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProdutoController extends Controller
 {
     public function index()
     {
-        $produtos = Produto::all();
+        $produtos = Auth::user()->produtos;
         return view('produtos.index', compact('produtos'));
     }
 
@@ -25,6 +26,7 @@ class ProdutoController extends Controller
         ]);
 
         $dados = $request->only(['nome', 'descricao', 'preco', 'quantidade']);
+        $dados['user_id'] = Auth::id();
 
         if ($request->hasFile('imagem')) {
             $dados['imagem'] = $request->file('imagem')->store('imagens', 'public');
@@ -37,6 +39,8 @@ class ProdutoController extends Controller
 
     public function update(Request $request, Produto $produto)
     {
+        abort_if($produto->user_id !== Auth::id(), 403);
+
         $request->validate([
             'nome'       => 'required|string|max:255',
             'descricao'  => 'required|string',
@@ -61,25 +65,27 @@ class ProdutoController extends Controller
 
     public function destroy(Produto $produto)
     {
-        $produto->delete(); // soft delete
+        abort_if($produto->user_id !== Auth::id(), 403);
+        $produto->delete();
         return redirect()->route('produtos.index')->with('sucesso', 'Produto movido para a lixeira!');
     }
 
     public function lixeira()
     {
-        $produtos = Produto::onlyTrashed()->get();
+        $produtos = Produto::onlyTrashed()->where('user_id', Auth::id())->get();
         return view('produtos.lixeira', compact('produtos'));
     }
 
     public function restaurar($id)
     {
-        Produto::onlyTrashed()->findOrFail($id)->restore();
+        $produto = Produto::onlyTrashed()->where('user_id', Auth::id())->findOrFail($id);
+        $produto->restore();
         return redirect()->route('produtos.lixeira')->with('sucesso', 'Produto restaurado com sucesso!');
     }
 
     public function forceApagar($id)
     {
-        $produto = Produto::onlyTrashed()->findOrFail($id);
+        $produto = Produto::onlyTrashed()->where('user_id', Auth::id())->findOrFail($id);
         if ($produto->imagem) {
             Storage::disk('public')->delete($produto->imagem);
         }
