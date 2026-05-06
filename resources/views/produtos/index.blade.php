@@ -18,10 +18,12 @@
                style="background: #718096; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-size: 14px;">
                 <i class="fas fa-trash-can"></i> Lixeira ({{ \App\Models\Produto::onlyTrashed()->where('user_id', Auth::id())->count() }})
             </a>
+            @if(!Auth::user()->isAdmin())
             <button onclick="abrirModal('modalCriar')"
                style="background: #4f46e5; color: white; padding: 10px 20px; border-radius: 8px; border: none; font-weight: bold; font-size: 14px; cursor: pointer;">
                 <i class="fas fa-plus"></i> Criar Produto
             </button>
+            @endif
         </div>
     </div>
 
@@ -35,6 +37,9 @@
                     <th style="padding: 15px; text-align: left;">Descrição</th>
                     <th style="padding: 15px; text-align: left;">Preço</th>
                     <th style="padding: 15px; text-align: left;">Qtd</th>
+                    @if(Auth::user()->isAdmin())
+                    <th style="padding: 15px; text-align: left;">Dono</th>
+                    @endif
                     <th style="padding: 15px; text-align: center;">Ações</th>
                 </tr>
             </thead>
@@ -56,6 +61,13 @@
                     <td style="padding: 14px 15px; color: #718096; max-width: 200px; word-wrap: break-word;">{{ $produto->descricao }}</td>
                     <td style="padding: 14px 15px; color: #38a169; font-weight: bold;">{{ number_format($produto->preco, 2) }} Kz</td>
                     <td style="padding: 14px 15px; color: #2d3748;">{{ $produto->quantidade }}</td>
+                    @if(Auth::user()->isAdmin())
+                    <td style="padding: 14px 15px;">
+                        <span style="background:#ebf4ff; color:#3b82f6; padding:4px 10px; border-radius:20px; font-size:12px; font-weight:600;">
+                            <i class="fas fa-user"></i> {{ $produto->user->name ?? 'N/A' }}
+                        </span>
+                    </td>
+                    @endif
                     <td style="padding: 14px 15px; text-align: center; white-space: nowrap;">
                         <button onclick="abrirVer('{{ addslashes($produto->nome) }}', '{{ addslashes($produto->descricao) }}', '{{ $produto->preco }}', '{{ $produto->quantidade }}', '{{ $produto->imagem ? asset('storage/' . $produto->imagem) : '' }}')"
                                 style="background: #3182ce; color: white; padding: 6px 12px; border-radius: 6px; border: none; font-size: 13px; cursor: pointer; margin: 2px;">

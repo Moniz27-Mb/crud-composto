@@ -12,6 +12,11 @@
                     <x-nav-link href="{{ route('produtos.index') }}" :active="request()->routeIs('produtos.*')">
                         <i class="fas fa-box me-1"></i> Produtos
                     </x-nav-link>
+                    @if(auth()->user()->isAdmin())
+                    <x-nav-link href="{{ route('admin.utilizadores') }}" :active="request()->routeIs('admin.*')">
+                        <i class="fas fa-users me-1"></i> Utilizadores
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -70,6 +75,11 @@
             <x-responsive-nav-link href="{{ route('produtos.index') }}" :active="request()->routeIs('produtos.*')">
                 <i class="fas fa-box me-1"></i> Produtos
             </x-responsive-nav-link>
+            @if(auth()->user()->isAdmin())
+            <x-responsive-nav-link href="{{ route('admin.utilizadores') }}" :active="request()->routeIs('admin.*')">
+                <i class="fas fa-users me-1"></i> Utilizadores
+            </x-responsive-nav-link>
+            @endif
         </div>
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">

@@ -1,0 +1,25 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#8643
+    [34mall[39m: [
+      [34;4mApp\Models\User[39;24m {#8645
+        [34mid[39m: [35m1[39m,
+        [34mname[39m: [32m"[39m[32mMoniz2[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32mmbembomoniz981@gmail.com[39m[32m"[39m,
+        [34mrole[39m: [32m"[39m[32muser[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=M&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+      [34;4mApp\Models\User[39;24m {#8644
+        [34mid[39m: [35m2[39m,
+        [34mname[39m: [32m"[39m[32mMoniz[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32mjdchsg@gmail.com[39m[32m"[39m,
+        [34mrole[39m: [32m"[39m[32muser[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=M&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+      [34;4mApp\Models\User[39;24m {#8633
+        [34mid[39m: [35m3[39m,
+        [34mname[39m: [32m"[39m[32mManuel[39m[32m"[39m,
+        [34memail[39m: [32m"[39m[32mmanuel@gmail.com[39m[32m"[39m,
+        [34mrole[39m: [32m"[39m[32muser[39m[32m"[39m,
+        +[1mprofile_photo_url[22m: [32m"[39m[32mhttps://ui-avatars.com/api/?name=M&color=7F9CF5&background=EBF4FF[39m[32m"[39m,
+      },
+    ],
+  }
